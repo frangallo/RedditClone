@@ -1,4 +1,6 @@
 class SessionsController < ApplicationController
+  before_action :redirect_to_index_if_logged_in, except: [:destroy]
+
   def new
     @user = User.new
     render :new
@@ -10,7 +12,8 @@ class SessionsController < ApplicationController
                                      )
     if @user
       log_in_user!(@user)
-      render text: "Logged in as #{@user.username}"
+      flash[:messages] = ["Logged in as #{@user.username}"]
+      redirect_to subs_url
     else
       flash.now[:errros] = ["Invalid credentials"]
       render :new

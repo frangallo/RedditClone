@@ -7,12 +7,18 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
+  <%= button_to "Log Out", session_url, method: :delete if logged_in? %>
   <% if flash[:errors] %>
     <% flash[:errors].each do |error| %>
       <%= error %>
     <% end %>
   <% end %>
-  
+  <% if flash[:messages] %>
+    <% flash[:messages].each do |message| %>
+      <%= message %>
+    <% end %>
+  <% end %>
+
 <%= yield %>
 
 </body>

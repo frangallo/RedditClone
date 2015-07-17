@@ -1,0 +1,26 @@
+<% action = form_action == :edit ? sub_url(sub_forum) : subs_url %>
+<% text = form_action == :edit ? "Edit Sub!" : "Create Sub!"%>
+<% method = form_action == :edit ? "PATCH" : "POST" %>
+
+<h1><%= text %></h1>
+
+<form action="<%= action %>" method="POST">
+  <input type="hidden" name="_method" value="<%= method %>">
+  <%= authentication_token %>
+
+  <label for="user_username">Sub Title</label>
+  <input
+    type="text"
+    name="sub[title]"
+    value="<%= sub_forum.title %>"
+    id="sub_title">
+  <br>
+  <br>
+
+  <label for="sub_description">Description</label>
+  <textarea name="sub[description]" id="sub_description"><%= sub_forum.description %></textarea>
+  <br>
+  <br>
+
+  <input type="submit" value="Submit!">
+</form>

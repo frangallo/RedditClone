@@ -1,0 +1,7 @@
+<% if post.url %>
+  <%= link_to post.title, post.url  %>
+<% else %>
+  <%= link_to post.title, sub_post_url(post) %>
+<% end %>
+Posted by <%= post.author.username %>
+<br>
