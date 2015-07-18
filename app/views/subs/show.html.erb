@@ -2,11 +2,10 @@
 <h2>Moderated by <%= @sub.moderator.username %></h2>
 <p><%= @sub.description %></p>
 <br>
+<%= render partial: "posts/post", collection: @sub.posts, subs: @subs %>
+<br>
+<%= link_to "Back to Subs Index", subs_url %>
+<br>
 <% if @sub.moderator == current_user %>
   <%= link_to "Edit", edit_sub_url(@sub) %>
 <% end %>
-
-
-<%= render partial: "posts/post", collection: @sub.posts %>
-<br>
-<%= link_to "Back to Subs Index", subs_url %>

@@ -24,6 +24,7 @@ class SubsController < ApplicationController
 
   def show
     @sub = Sub.includes(:moderator).find(params[:id])
+    @subs = Sub.all
   end
 
   def edit

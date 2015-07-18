@@ -1,4 +1,4 @@
-<% url = form_action == :edit ? edit_sub_post(post) : sub_posts_url %>
+<% url = form_action == :edit ? post_url(post) : posts_url %>
 <% form_value = form_action == :edit ? "PATCH" : "POST" %>
 <% form_title = form_action == :edit ? "Edit Post" : "Create Post" %>
 
@@ -6,7 +6,7 @@
 <form action="<%= url %>" method="POST">
   <input type="hidden" name="_method" value="<%= form_value %>">
   <%= authentication_token %>
-  
+
   <label for="post_title">Enter Post Title</label>
   <input
     type="text"
@@ -28,6 +28,18 @@
   <label for="post_content">Enter Content</label>
   <textarea name="post[content]" id="post_content"><%= post.content %></textarea>
   <br>
+  <br>
+
+  <% Sub.all.each do |sub| %>
+    <label for="<%= sub.id %>"><%= sub.title %></label>
+    <input
+      type="checkbox"
+      name="post[sub_ids][]"
+      id="<%= sub.id %>"
+      value="<%= sub.id %>"
+      <%= post.subs.include?(sub) ? "checked" : "" %>>
+      <br>
+    <% end %>
   <br>
 
   <input type="submit" value="Submit Post">

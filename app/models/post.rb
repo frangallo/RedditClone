@@ -13,7 +13,8 @@
 #
 
 class Post < ActiveRecord::Base
-  validates :author, :sub, :title, presence: true
+  validates :author, :title, presence: true
+  validate :has_at_least_one_sub
 
   belongs_to(
     :author,
@@ -22,10 +23,19 @@ class Post < ActiveRecord::Base
     primary_key: :id
   )
 
-  belongs_to(
-    :sub,
-    class_name: :Sub,
-    foreign_key: :sub_id,
-    primary_key: :id
+  has_many(
+    :post_subs,
+    class_name: :PostSub,
+    foreign_key: :post_id,
+    primary_key: :id,
+    inverse_of: :post
   )
+
+  has_many :subs, through: :post_subs, source: :sub
+
+  private
+
+  def has_at_least_one_sub
+    errors[:subs] << "Post must belong to at least one sub" if subs.empty?
+  end
 end

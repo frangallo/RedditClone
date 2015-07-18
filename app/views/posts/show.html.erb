@@ -2,7 +2,7 @@
 <br>
 <p><%= @post.content %></p>
 <br>
-<%= link_to "Back to Sub", sub_url(@post.sub) %>
+<%= link_to "Back to Sub", sub_url(@post.subs.first) %>
 <% if @post.author == current_user %>
-  <%= link_to "Edit Post", edit_sub_post_url(@post) %>
+  <%= link_to "Edit Post", edit_post_url(@post) %>
 <% end %>
